@@ -1,0 +1,66 @@
+<x-layout>
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-semibold text-gray-800">Blog Posts</h2>
+            <a href="{{ route('posts.create') }}" class="bg-emerald-500 hover:bg-emerald-600 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200 flex items-center">
+                <i  class="fas fa-plus mr-2"></i> Create Post
+            </a>
+        </div>
+            
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">#</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Posted By</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created At</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    </tr>
+            </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    @foreach ($posts as $post)
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $post['id'] }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 font-medium">{{ $post['title'] }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{{ $post['posted_by'] }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{{ $post['created_at'] }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                                    <a href="{{ route('posts.show', $post['id']) }}" >
+                                        <x-button type="primary">View</x-button>
+                                    </a>
+                                    <a href="{{ route('posts.edit', $post['id']) }}"> 
+                                        <x-button  type="secondary">Edit</x-button>
+                                    </a>
+                                    <x-button type="danger">Delete</x-button>
+                                </td>
+                            </tr>
+                        @endforeach
+                       
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="mt-6 flex justify-between items-center">
+                <p class="text-sm text-gray-600">Showing 1-3 of 9 posts</p>
+                <div class="flex space-x-1">
+                    <button class="bg-gray-100 text-gray-500 hover:bg-gray-200 px-3 py-1 rounded-md transition-colors duration-200">
+                        Previous
+                    </button>
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded-md">
+                        1
+                    </button>
+                    <button class="bg-gray-100 text-gray-700 hover:bg-gray-200 px-3 py-1 rounded-md transition-colors duration-200">
+                        2
+                    </button>
+                    <button class="bg-gray-100 text-gray-700 hover:bg-gray-200 px-3 py-1 rounded-md transition-colors duration-200">
+                        3
+                    </button>
+                    <button class="bg-gray-100 text-gray-700 hover:bg-gray-200 px-3 py-1 rounded-md transition-colors duration-200">
+                        Next
+                    </button>
+                </div>
+            </div>
+        </div>
+
+</x-layout>
