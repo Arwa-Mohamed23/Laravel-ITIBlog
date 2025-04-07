@@ -49,27 +49,9 @@
                     </tbody>
                 </table>
             </div>
-            
-            <div class="mt-6 flex justify-between items-center">
-                <p class="text-sm text-gray-600">Showing 1-3 of 9 posts</p>
-                <div class="flex space-x-1">
-                    <button class="bg-gray-100 text-gray-500 hover:bg-gray-200 px-3 py-1 rounded-md transition-colors duration-200">
-                        Previous
-                    </button>
-                    <button class="bg-blue-500 text-white px-3 py-1 rounded-md">
-                        1
-                    </button>
-                    <button class="bg-gray-100 text-gray-700 hover:bg-gray-200 px-3 py-1 rounded-md transition-colors duration-200">
-                        2
-                    </button>
-                    <button class="bg-gray-100 text-gray-700 hover:bg-gray-200 px-3 py-1 rounded-md transition-colors duration-200">
-                        3
-                    </button>
-                    <button class="bg-gray-100 text-gray-700 hover:bg-gray-200 px-3 py-1 rounded-md transition-colors duration-200">
-                        Next
-                    </button>
-                </div>
+
+            <div class="mt-6">
+                {{ $posts->links() }}
             </div>
-        </div>
 
 </x-layout>

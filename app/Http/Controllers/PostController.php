@@ -8,25 +8,17 @@ use App\Models\User;
 class PostController extends Controller
 {
     public function index(){
-        $posts = Post::all();
+        //$posts = Post::all();
+        $posts = Post::paginate(15);
 
         return view('posts.index',compact('posts'));
     }
 
     public function show(Post $post){
+        
         //$post = Post::findOrFail($id);
-
-        // $post = [
-        //     'title' => 'Hello Post',
-        //     'description' => 'this is some post',
-        //     'user' => [
-        //         'name' => 'Ahmed',
-        //         'email' => 'ahmed@gmail.com',
-        //         'created_at' => '2024-10-01 10:00:00'
-        //     ]
-        // ];
-
-        return view('posts.show',['post' => $post]);
+        $users = User::all(); 
+        return view('posts.show',['post' => $post, 'users' => $users]);
     }
 
     public function create(){
