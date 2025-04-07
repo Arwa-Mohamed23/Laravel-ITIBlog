@@ -23,8 +23,8 @@
                         <tr class="hover:bg-gray-50">
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $post['id'] }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 font-medium">{{ $post['title'] }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{{ $post['posted_by'] }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{{ $post['created_at'] }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{{$post->user ? $post->user->name : 'not found'}}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{{ $post->created_at->format('y-m-d') }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
                                     <a href="{{ route('posts.show', $post['id']) }}" >
                                         <x-button type="primary">View</x-button>
@@ -32,7 +32,16 @@
                                     <a href="{{ route('posts.edit', $post['id']) }}"> 
                                         <x-button  type="secondary">Edit</x-button>
                                     </a>
-                                    <x-button type="danger">Delete</x-button>
+                                    <form method="POST" 
+                                          action="{{ route('posts.destroy', $post['id']) }}" 
+                                          style="display: inline;"
+                                          onsubmit="return confirm('Are you sure you want to delete this post?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit">
+                                            <x-button type="danger">Delete</x-button>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

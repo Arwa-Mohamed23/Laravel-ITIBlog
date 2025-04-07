@@ -19,11 +19,11 @@
                         </div>
                         
                         <div class="mb-6">
-                            <label for="creator" class="block text-sm font-medium text-gray-700 mb-1">Post Creator</label>
-                            <select id="creator" name="creator" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 bg-white">
-                                <option selected>Ahmed</option>
-                                <option>Mohamed</option>
-                                <option>Ali</option>
+                            <label for="post_creator" class="block text-sm font-medium text-gray-700 mb-1">Post Creator</label>
+                            <select id="post_creator" name="post_creator" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 bg-white">
+                                @foreach($users as $user)
+                                    <option value="{{$user->id}}">{{$user->name}}</option>
+                                @endforeach
                             </select>
                         </div>
                         

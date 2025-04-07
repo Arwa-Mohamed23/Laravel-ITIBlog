@@ -33,19 +33,19 @@
                         <div class="mb-3">
                             <div class="flex flex-col md:flex-row md:items-center">
                                 <span class="font-medium text-gray-700 md:w-28">Name :-</span>
-                                <span class="text-gray-600">{{ $post['user']['name'] }}</span>
+                                <span class="text-gray-600">{{$post->user ? $post->user->name : 'not found'}}</span>
                             </div>
                         </div>
                         <div class="mb-3">
                             <div class="flex flex-col md:flex-row md:items-center">
                                 <span class="font-medium text-gray-700 md:w-28">Email :-</span>
-                                <span class="text-gray-600">{{ $post['user']['email'] }}</span>
+                                <span class="text-gray-600">{{ $post['user']? $post['user']['email']: 'not found' }}</span>
                             </div>
                         </div>
                         <div>
                             <div class="flex flex-col md:flex-row md:items-center">
                                 <span class="font-medium text-gray-700 md:w-28">Created At :-</span>
-                                <span class="text-gray-600">{{ $post['user']['created_at'] }}</span>
+                                <span class="text-gray-600">{{ $post['user']? $post->user->created_at->format('l jS \\of F Y h:i:s A'): 'not Found' }}</span>
                             </div>
                         </div>
                     </div>

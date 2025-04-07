@@ -3,69 +3,82 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\post;
+use App\Models\User;
 class PostController extends Controller
 {
     public function index(){
-        $posts = [
-            ['id' => 1 , 'title' => 'First Post', 'posted_by' => 'Ahmed', 'created_at' => '2025-11-10 10:00:00'],
-            ['id' => 2 , 'title' => 'Second Post','posted_by' => 'Mohamed', 'created_at' => '2025-11-10 10:00:00'],
-            ['id' =>3 , 'title' => 'Third Post','posted_by' => 'Mohamed', 'created_at' => '2025-11-10 10:00:00'],
-        ];
+        $posts = Post::all();
 
         return view('posts.index',compact('posts'));
     }
 
-    public function show(){
-        $post = [
-            'title' => 'Hello Post',
-            'description' => 'this is some post',
-            'user' => [
-                'name' => 'Ahmed',
-                'email' => 'ahmed@gmail.com',
-                'created_at' => '2024-10-01 10:00:00'
-            ]
-        ];
+    public function show(Post $post){
+        //$post = Post::findOrFail($id);
 
-        return view('posts.show',[
-            'post' => $post
-        ]);
+        // $post = [
+        //     'title' => 'Hello Post',
+        //     'description' => 'this is some post',
+        //     'user' => [
+        //         'name' => 'Ahmed',
+        //         'email' => 'ahmed@gmail.com',
+        //         'created_at' => '2024-10-01 10:00:00'
+        //     ]
+        // ];
+
+        return view('posts.show',['post' => $post]);
     }
 
     public function create(){
-        return view('posts.create');
+
+        $users = User::all();
+        return view('posts.create', ['users' => $users]);
     } 
 
-    public function store(Request $request){
+    public function store(){
         // dd($_POST);
 
         //dd(request()->all());
 
-        //dd(request()->title);
+        $title = request()->title;
+        $description = request()->description;
+        $postCreator = request()->post_creator;
 
-        //dd($request->all());
+        //dd($postCreator);
+
+        Post::create([
+            'title' => $title,
+            'description' => $description,
+            'user_id' => $postCreator,
+        ]);
 
         return to_route('posts.index');
     }
 
-    public function edit($postId){
-        $post = [
-            'id' => $postId,
-            'title' => 'Sample Post',
-            'description' => 'Sample description',
-            'posted_by' => 'Ahmed'
-        ];
-
-        return view('posts.edit',[
-            'post' => $post
-        ]);
+    public function edit(Post $post){
+        $users = User::all();
+        return view('posts.edit',['users' => $users, 'post' => $post]);
     }
 
-    public function update(Request $request, $postId){
-        $data = $request->all();
-        $data['id'] = $postId;
-        //dd($data);
+    public function update($postId){
 
+        $title = request()->title;
+        $description = request()->description;
+        $postCreator = request()->post_creator;
+
+        $singlePostFromDB = Post::find($postId);
+        $singlePostFromDB->update([
+            'title' => $title,
+            'description' => $description,
+            'user_id' => $postCreator,
+        ]);
+        return to_route('posts.show', $postId);
+    }
+
+    public function destroy($postId)
+    {
+        $post = Post::find($postId);
+        $post->delete();
         return to_route('posts.index');
     }
 }
