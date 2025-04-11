@@ -13,6 +13,7 @@
                     <tr>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">#</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Slug</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Posted By</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created At</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
@@ -23,6 +24,7 @@
                         <tr class="hover:bg-gray-50">
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $post['id'] }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 font-medium">{{ $post['title'] }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{{ $post['slug'] }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{{$post->user ? $post->user->name : 'not found'}}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{{ $post->created_at->format('y-m-d') }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">

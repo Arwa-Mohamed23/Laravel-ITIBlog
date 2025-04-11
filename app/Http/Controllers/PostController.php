@@ -33,17 +33,18 @@ class PostController extends Controller
         // dd($_POST);
 
         //dd(request()->all());
+        $validated = $request->validated();
 
-        $title = request()->title;
-        $description = request()->description;
-        $postCreator = request()->post_creator;
+        // $title = request()->title;
+        // $description = request()->description;
+        // $postCreator = request()->post_creator;
 
         //dd($postCreator);
 
         Post::create([
-            'title' => $title,
-            'description' => $description,
-            'user_id' => $postCreator,
+            'title' => $validated['title'],
+            'description' => $validated['description'],
+            'user_id' => $validated['post_creator'],
         ]);
 
         return to_route('posts.index');
