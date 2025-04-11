@@ -17,7 +17,7 @@
             </div>
             
             <div class="px-6 py-4">
-                <form method="POST" action="{{ route('posts.update', $post->id) }}">
+                <form method="POST" action="{{ route('posts.update', $post->id) }}" enctype="multipart/form-data">
                     @csrf
                     @method('PATCH')
                     
@@ -32,6 +32,20 @@
                         <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
                         <textarea id="description" name="description" rows="6" 
                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500">{{$post->description}}</textarea>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="image" class="block text-sm font-medium text-gray-700 mb-1">Post Image (JPG, PNG only)</label>
+                        
+                        @if($post->image)
+                            <div class="mb-2">
+                                <p class="text-sm text-gray-600 mb-1">Current image:</p>
+                                <img src="{{ Storage::url($post->image) }}" alt="{{ $post->title }}" class="h-40 w-auto object-cover rounded-md">
+                            </div>
+                        @endif
+                        
+                        <input type="file" id="image" name="image" accept=".jpg,.png" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500">
+                        <p class="mt-1 text-sm text-gray-500">Maximum size: 5MB. Leave empty to keep current image.</p>
                     </div>
                     
                     <div class="mb-6">

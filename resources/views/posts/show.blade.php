@@ -7,6 +7,11 @@
                     <h2 class="text-lg font-semibold text-gray-800">Post Info</h2>
                 </div>
                 <div class="px-6 py-4">
+                    @if($post->image)
+                    <div class="mb-6">
+                        <img src="{{ Storage::url($post->image) }}" alt="{{ $post->title }}" class="w-full h-auto rounded-lg shadow-sm">
+                    </div>
+                    @endif
                     <div class="mb-4">
                         <div class="flex flex-col md:flex-row md:items-center">
                             <span class="font-medium text-gray-700 md:w-28">Title :-</span>

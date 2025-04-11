@@ -16,7 +16,7 @@
                 </div>
                 
                 <div class="px-6 py-4">
-                    <form method="POST" action="/posts">
+                    <form method="POST" action="/posts" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-4">
                             <label for="title" class="block text-sm font-medium text-gray-700 mb-1">Title</label>
@@ -26,6 +26,12 @@
                         <div class="mb-4">
                             <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
                             <textarea id="description" name="description" rows="6" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"></textarea>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="image" class="block text-sm font-medium text-gray-700 mb-1">Post Image (JPG, PNG only)</label>
+                            <input type="file" id="image" name="image" accept=".jpg,.png" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500">
+                            <p class="mt-1 text-sm text-gray-500">Maximum size: 5MB</p>
                         </div>
                         
                         <div class="mb-6">

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Support\Facades\Storage;
 
 class Post extends Model
 {
@@ -14,6 +15,7 @@ class Post extends Model
         'title',
         'description',
         'user_id',
+        'image',
     ];
 
     public function user()
@@ -33,6 +35,24 @@ class Post extends Model
                 'source' => 'title'
             ]
         ];
+    }
+
+    public function getImageUrlAttribute()
+    {
+        if ($this->image) {
+            return Storage::url($this->image);
+        }
+        
+        return null;
+    }
+
+    protected static function booted()
+    {
+        static::deleting(function (Post $post) {
+            if ($post->image) {
+                Storage::disk('public')->delete($post->image);
+            }
+        });
     }
 
 }

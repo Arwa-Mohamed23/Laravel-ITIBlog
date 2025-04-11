@@ -7,6 +7,8 @@ use App\Models\Post;
 use App\Models\User;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use Illuminate\Support\Facades\Storage;
+
 class PostController extends Controller
 {
     public function index(){
@@ -41,11 +43,18 @@ class PostController extends Controller
 
         //dd($postCreator);
 
-        Post::create([
+        $data = [
             'title' => $validated['title'],
             'description' => $validated['description'],
             'user_id' => $validated['post_creator'],
-        ]);
+        ];
+        
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('post-images', 'public');
+        }
+
+        Post::create($data);
 
         return to_route('posts.index');
     }
@@ -55,19 +64,27 @@ class PostController extends Controller
         return view('posts.edit',['users' => $users, 'post' => $post]);
     }
 
-    public function update($postId, UpdatePostRequest $request){
+    public function update(UpdatePostRequest $request, Post $post)
+    {
+        $validated = $request->validated();
+        
+        $data = [
+            'title' => $validated['title'],
+            'description' => $validated['description'],
+            'user_id' => $validated['post_creator'],
+        ];
+        
+        if ($request->hasFile('image')) {
+            if ($post->image) {
+                Storage::disk('public')->delete($post->image);
+            }
+            
+            $data['image'] = $request->file('image')->store('post-images', 'public');
+        }
 
-        $title = request()->title;
-        $description = request()->description;
-        $postCreator = request()->post_creator;
-
-        $singlePostFromDB = Post::find($postId);
-        $singlePostFromDB->update([
-            'title' => $title,
-            'description' => $description,
-            'user_id' => $postCreator,
-        ]);
-        return to_route('posts.show', $postId);
+        $post->update($data);
+        
+        return to_route('posts.show', $post);
     }
 
     public function destroy($postId){
