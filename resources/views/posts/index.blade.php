@@ -32,7 +32,7 @@
                                         <x-button type="primary">View</x-button>
                                     </a>
                                     <a href="{{ route('posts.edit', $post['id']) }}"> 
-                                        <x-button  type="secondary">Edit</x-button>
+                                        <x-button  type="secondary" class="bg-amber-500 text-white hover:bg-amber-600 focus:ring-amber-500">Edit</x-button>
                                     </a>
                                     <form method="POST" 
                                           action="{{ route('posts.destroy', $post['id']) }}" 
@@ -41,7 +41,7 @@
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit">
-                                            <x-button type="danger">Delete</x-button>
+                                            <x-button type="danger" class="bg-red-500 text-white hover:bg-red-600 focus:ring-red-500">Delete</x-button>
                                         </button>
                                     </form>
                                 </td>
