@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\User;
+use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 class PostController extends Controller
 {
     public function index(){
@@ -27,7 +29,7 @@ class PostController extends Controller
         return view('posts.create', ['users' => $users]);
     } 
 
-    public function store(){
+    public function store(storePostRequest $request){
         // dd($_POST);
 
         //dd(request()->all());
@@ -52,7 +54,7 @@ class PostController extends Controller
         return view('posts.edit',['users' => $users, 'post' => $post]);
     }
 
-    public function update($postId){
+    public function update($postId, UpdatePostRequest $request){
 
         $title = request()->title;
         $description = request()->description;
@@ -67,9 +69,10 @@ class PostController extends Controller
         return to_route('posts.show', $postId);
     }
 
-    public function destroy($postId)
-    {
+    public function destroy($postId){
         $post = Post::find($postId);
+        //dd($post->comments());
+        //$post->comments()->delete();
         $post->delete();
         return to_route('posts.index');
     }

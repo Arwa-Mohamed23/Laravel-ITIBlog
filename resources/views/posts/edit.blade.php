@@ -1,4 +1,15 @@
 <x-layout>
+
+@if ($errors->any())
+    <div class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
     <div class="max-w-3xl mx-auto">
         <div class="bg-white rounded-md border border-gray-200 shadow-sm overflow-hidden">
             <div class="px-6 py-4 border-b border-gray-200">
